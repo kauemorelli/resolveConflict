@@ -40,43 +40,57 @@ if test $(fileToCommit) -eq 0;
 then
 	echo "Igual a 0"
 	echo "Entrando na branch da Tarefa"
-	#git checkout [BRANCH-TASK]
-	#git pull origin [BRANCH-TASK]
+	git checkout $1
+	git pull origin $1
+	
 	echo "Criando (como base a branch da task) e indo para nova Branch (para manter um backup)"
-	#git branch [BRANCH-TASK] + "-RC"
-	#git checkout [BRANCH-TASK] + "-RC"
+	git branch $1 + "-RC"
+	git checkout $1 + "-RC"
+	
 	echo "Trazendo a Branch do pacote (para trazer os conflitos)"
-	#git git pull origin [BRANCH-PACOTE]
+	git git pull origin $2
+	
 	echo "Gerando os Arquivos compilados (Grunt / Gulp)"
-	#grunt prod
+	grunt prod
+	
 	echo "Comitando"
-	#git add --all
-	#git commit -m "Resolvend conflict (bash)"
+	git add --all
+	git commit -m "Resolvend conflict (bash)"
+	
 	echo "Efetuando PUSH na Branch"
-	#git push origin [BRANCH-TASK] + "-RC"
+	git push origin $1 + "-RC"
+	
 	echo "Voltando à Branch anterior"
-	#git checkout $(branchInicial)
+	git checkout $(branchInicial)
 else
 	echo "Diferente de 0"
 	echo "Alterações na branch atual não comitadas estao sendo adicionadas no Stash"
-	#git add . && git stash
+	git add . && git stash
+	
 	echo "Entrando na branch da Tarefa"
-	#git checkout [BRANCH-TASK]
-	#git pull origin [BRANCH-TASK]
+	git checkout $1
+	git pull origin $1
+	
 	echo "Criando (como base a branch da task) e indo para nova Branch (para manter um backup)"
-	#git branch [BRANCH-TASK] + "-RC"
-	#git checkout [BRANCH-TASK] + "-RC"
+	git branch $1 + "-RC"
+	git checkout $1 + "-RC"
+	
 	echo "Trazendo a Branch do pacote (para trazer os conflitos)"
-	#git git pull origin [BRANCH-PACOTE]
+	git git pull origin $2
+	
 	echo "Gerando os Arquivos compilados (Grunt / Gulp)"
-	#grunt prod
+	grunt prod
+	
 	echo "Comitando"
-	#git add --all
-	#git commit -m "Resolvend conflict (bash)"
+	git add --all
+	git commit -m "Resolvend conflict (bash)"
+	
 	echo "Efetuando PUSH na Branch"
-	#git push origin [BRANCH-TASK] + "-RC"
+	git push origin $1 + "-RC"
+	
 	echo "Voltando à Branch anterior"
-	#git checkout $(branchInicial)
+	git checkout $(branchInicial)
+	
 	echo "Voltando os arquivos do Stash"
-	#git stash apply
+	git stash apply
 fi
